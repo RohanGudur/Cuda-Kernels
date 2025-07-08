@@ -1,10 +1,15 @@
-#include <stdio.h>
-#include <cuda.h>
-__global__ void dkernel() {
-    printf("Hello World.\n");
+#include <iostream>
+#include <cuda_runtime.h>
+
+
+__global__ void dkernel(){
+
+    printf("HelloWorld\n");
 }
-int main() {
-    dkernel<<<1, 32>>>();
-	cudaThreadSynchronize();
+
+int main(){
+    dkernel <<<1 , 1>>>();
+     cudaDeviceSynchronize();
     return 0;
 }
+
