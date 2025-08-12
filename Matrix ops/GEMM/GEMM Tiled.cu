@@ -1,5 +1,7 @@
-#include "solve.h"
 #include <cuda_runtime.h>
+"""
+The follwing is basic tiled gemm refer to cutlass for a sol kernels for gemm
+"""
 
 #define BLOCK_SIZE 32
 
@@ -39,7 +41,7 @@ __global__ void matrix_multiplication_kernel(const float* A, const float* B, flo
     }
 }
 
-void solve(const float* A, const float* B, float* C, int M, int N, int K) {
+extern "C" void solve(const float* A, const float* B, float* C, int M, int N, int K) {
     dim3 threadsPerBlock(BLOCK_SIZE, BLOCK_SIZE);
     dim3 blocksPerGrid((K + threadsPerBlock.x - 1) / threadsPerBlock.x,
                        (M + threadsPerBlock.y - 1) / threadsPerBlock.y);

@@ -1,4 +1,3 @@
-#include "solve.h"
 #include <cuda_runtime.h>
 
 #define TILE_WIDTH 8
@@ -21,7 +20,7 @@ __global__ void matrix_transpose_kernel(const float* input, float* output, int r
         output[row_out * rows + col_out] = tile[threadIdx.x][threadIdx.y];
     }
 }
-void solve(const float* input, float* output, int rows, int cols) {
+extern "C" void solve(const float* input, float* output, int rows, int cols) {
     dim3 threadsPerBlock(TILE_WIDTH, TILE_WIDTH);
     dim3 blocksPerGrid((cols + TILE_WIDTH - 1) / TILE_WIDTH,
                        (rows + TILE_WIDTH - 1) / TILE_WIDTH);
@@ -29,4 +28,6 @@ void solve(const float* input, float* output, int rows, int cols) {
     matrix_transpose_kernel<<<blocksPerGrid, threadsPerBlock>>>(input, output, rows, cols);
     cudaDeviceSynchronize();
 }
+
+
 
