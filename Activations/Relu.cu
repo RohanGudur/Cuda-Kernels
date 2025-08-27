@@ -1,4 +1,3 @@
-#include "solve.h"
 #include <cuda_runtime.h>
 
 __global__ void relu_kernel(const float* input, float* output, int N) {
@@ -27,7 +26,7 @@ __global__ void relu_kernel(const float* input, float* output, int N) {
     
 }
 
-void solve(const float* input, float* output, int N) {
+extern "C" void solve(const float* input, float* output, int N) {
     int threadsPerBlock = 256;
     int blocksPerGrid = (N/4 + threadsPerBlock - 1) / threadsPerBlock;
 

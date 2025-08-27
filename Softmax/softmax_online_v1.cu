@@ -131,7 +131,6 @@ __global__ void reduce(const float* d_block_max, const float* d_block_sum,
     }
 }
 
-
 __global__ void compute(const float* input, float* output,
                                               const float* d_global_max, const float* d_global_sum, int N) {
     const float global_max = *d_global_max;
